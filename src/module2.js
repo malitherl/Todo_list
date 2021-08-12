@@ -5,6 +5,7 @@ const project = (name, tasks) => {
 
     const addTask = newTask => {
         tasks.push(newTask);
+        console.log(tasks);
     };
 
     return {getNames, getTasks, addTask}
