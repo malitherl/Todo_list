@@ -6,6 +6,7 @@ const createToDo = (title, description, dueDate, priority, completionStatus) => 
     todo.dueDate= dueDate;
     todo.priority=priority;
     todo.completionStatus= completionStatus;
+    console.log(todo);
     return todo;
 
 }
@@ -24,10 +25,4 @@ function edit(todo) {
 
 }
 
-
-
-
-
-let todo1 = createToDo("a", "b", "4", "1", false);
-
-console.log(todo1);
+export {createToDo}
