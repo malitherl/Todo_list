@@ -81,4 +81,29 @@ function fillOut (){
 
 };
 
-export {fillOut}
+function projectCreation(){
+
+    const content = document.getElementById("content");
+    const textbox = document.createElement("label");
+    textbox.textContent= "Project Name: ";
+    const projectName = document.createElement("input");
+    projectName.setAttribute("id", "projName");
+    projectName.setAttribute("type", "text");
+    const button2 = document.createElement("button");
+    button2.textContent="Submit";
+    button2.setAttribute("type", "button");
+    button2.setAttribute("id", "submit2");
+
+    content.appendChild(textbox);
+    content.appendChild(projectName);
+    content.appendChild(button2);
+
+}
+
+
+
+
+
+
+
+export {fillOut, projectCreation}

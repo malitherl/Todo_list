@@ -1,14 +1,13 @@
 const project = (name, tasks) => {
 
     const getTasks = () => tasks; 
-    const getNames = () => name;
+    const getName = () => name;
 
     const addTask = newTask => {
         tasks.push(newTask);
-        console.log(tasks);
     };
 
-    return {getNames, getTasks, addTask}
+    return {getName, getTasks, addTask}
 };
 
 export {project}
