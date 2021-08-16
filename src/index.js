@@ -7,7 +7,6 @@ import {projectDisplay, updateProject} from './projectDisplay';
 //we need to give the user the ability to choose which project they would like to add to dos to 
 
 //this will be for little tasks 
-fillOut();
 //what we need to do is change how the projects are made and make it so that 
 //we can add projects via directly in the project panel 
 //which would be very helpful instead of just having this form pop up
@@ -16,13 +15,27 @@ const work = project("Work", []);
 const newProject = project("a", []);
 let projects = [personal, work];
  
+
+//we need to be able to modify tasks as well, which means appending behaviors onto 
+//the tasks themselves 
+
+//but before we can approach this, we'll need to make a more functional means 
+//of displaying these tasks at hand 
+
 projectDisplay(projects);
 
 let meeb = createToDo("water the plants", "burh i need to water my plants", "08/15/2022", "1", "complete");
 let shmeeb = createToDo("water the plants", "burh i need to water my plants", "08/15/2021", "1", "complete");
 personal.addTask(meeb);
 personal.addTask(shmeeb);
+fillOut();
+console.log(document.getElementsByClassName("taskCreator"));
 
+Array.from(document.getElementsByClassName("taskCreator")).forEach(p => {
+    p.addEventListener("click", function(){
+        p.firstElementChild.style.display = "block";
+    })
+});
 
 document.getElementById("submit").addEventListener("click", function(){
     updateProject();

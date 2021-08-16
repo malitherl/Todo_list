@@ -15,12 +15,11 @@ function projectDisplay(projects){
              p3.appendChild(taskWords);
         })
         let p4 = document.createElement("p");
-        p4.setAttribute("id","taskCreator");
+        p4.setAttribute("class","taskCreator");
         p4.textContent = "Add Task(+)";
         p3.appendChild(p4);
         p3.addEventListener("click", function(){
             Array.from(document.querySelectorAll("p")).forEach(words =>{
-               
                 words.style.display = "block";
             })
         })

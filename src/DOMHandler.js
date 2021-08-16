@@ -1,10 +1,11 @@
 
 function fillOut (){
     const content = document.getElementById("content");
-
+    let h3 = Array.from(document.getElementsByClassName("taskCreator"));
+    console.log(h3);
     //we create a form here so we can fill out todo elements 
-
-    const form = document.createElement("form");
+    h3.forEach(element => {
+        const form = document.createElement("form");
 
         const label1 = document.createElement("label");
         label1.textContent = "Title: ";
@@ -70,14 +71,12 @@ function fillOut (){
             form.appendChild(input5);
         form.appendChild(dropdown);
         form.appendChild(label6);
-        
+    
+        form.style.display= "none";    
 
-        content.appendChild(form);
+    element.appendChild(form);
 
-    const projectSection = document.createElement("DIV");
-
-    content.appendChild(projectSection);
-
+    });
 
 };
 
