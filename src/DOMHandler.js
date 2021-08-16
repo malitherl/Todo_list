@@ -47,7 +47,7 @@ function fillOut (){
 
         const option2 = document.createElement("option");
         option2.setAttribute("value", "other");
-        option2.textContent= "Other";
+        option2.textContent= "Create New...";
 
         dropdown.appendChild(option);
         dropdown.appendChild(option1);
