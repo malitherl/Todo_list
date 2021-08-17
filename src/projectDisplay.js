@@ -1,3 +1,4 @@
+import { fillOut } from "./DOMHandler";
 
 
 function projectDisplay(projects){
@@ -7,6 +8,9 @@ function projectDisplay(projects){
         prjBar.setAttribute("id", "prjBar");
         let p3 = document.createElement("h3");
         p3.textContent = element.getName() + " (" + element.getTasks().length+ ")" ; 
+        p3.setAttribute("class", "projectTitle");
+        p3.setAttribute("id", "projTitle");
+    
         let tasks = Array.from(element.getTasks());
         tasks.forEach(task => {
              let taskWords = document.createElement("p");
@@ -18,20 +22,21 @@ function projectDisplay(projects){
         p4.setAttribute("class","taskCreator");
         p4.textContent = "Add Task(+)";
         p3.appendChild(p4);
+        //this also needs to be changed so that when we click it it doesn't display ALL of the <p> elements 
         p3.addEventListener("click", function(){
             Array.from(document.querySelectorAll("p")).forEach(words =>{
-                words.style.display = "block";
-            })
+            words.style.display = "block";       
         })
         
-        p3.addEventListener("click", function(){
-         
-        })    
-        prjBar.appendChild(p3);
+    
 
+    });
         //this is where we get the functionality to create a new project in this panel
-       
+        prjBar.appendChild(p3);
         content.appendChild(prjBar);
+
+        //this is actually where we need to add tasks, not the index.js page 
+
 
         //each project heading needs to be a dropdown menu that displays its tasks 
             //and each task needs a button that would allow the user to modify it and or delete it 
@@ -47,11 +52,12 @@ function projectDisplay(projects){
     //we add an event listener to this in index.js
 }
 
-function updateProject(){
-    let prjBar = document.getElementById("prjBar");
-    if(prjBar !== null){
-        prjBar.parentElement.removeChild(prjBar);
-    }
+function updateProject(projects){
+    projects.forEach(project => {
+        let textDisplay = document.getElementById("projTitle"); 
+        textDisplay.textContent = project.getName() + " (" + project.getTasks().length+ ")" ;
+    })
+    
 }
 
 export{projectDisplay, updateProject}
