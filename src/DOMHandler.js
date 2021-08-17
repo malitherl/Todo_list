@@ -1,11 +1,9 @@
-
-function fillOut (){
-    const content = document.getElementById("content");
-    let h3 = Array.from(document.getElementsByClassName("taskCreator"));
-    console.log(h3);
-    let i = 0;
+import {formHandler} from './formHandler';
+function fillOut (node){
+    
+    resetForm();
     //we create a form here so we can fill out todo elements 
-    h3.forEach(element => {
+   
         const form = document.createElement("form");
         const label1 = document.createElement("label");
         label1.textContent = "Title: ";
@@ -36,24 +34,6 @@ function fillOut (){
         input5.setAttribute("value", "complete");
         input5.setAttribute("class", "info");
 
-        const dropdown = document.createElement("select");
-        dropdown.setAttribute("class", "info");
-        const option = document.createElement("option");
-        option.setAttribute("value", "personal");
-        option.textContent= "Personal";
-
-        const option1 = document.createElement("option");
-        option1.setAttribute("value", "work");
-        option1.textContent ="Work";
-
-        const option2 = document.createElement("option");
-        option2.setAttribute("value", "other");
-        option2.textContent= "Create New...";
-
-        dropdown.appendChild(option);
-        dropdown.appendChild(option1);
-        dropdown.appendChild(option2);
-
         const label6 = document.createElement("button");
         label6.textContent="Submit";
         label6.setAttribute("type", "button");
@@ -68,14 +48,12 @@ function fillOut (){
             form.appendChild(input4);
         form.appendChild(label5);
             form.appendChild(input5);
-        form.appendChild(dropdown);
         form.appendChild(label6);
+        node.appendChild(form);
     
-        form.style.display= "none";    
-
-        element.appendChild(form);
-    });
 };
+
+
 
 function projectCreation(){
 
@@ -95,7 +73,8 @@ function projectCreation(){
     content.appendChild(button2);
 
 }
-
+//we should have a little function to hide away the non current projects but not delete or we'd otherwise lose our event listeners 
+//which would be sadge :< 
 
 function projectDisplay(projects){
     const content = document.getElementById("content");
@@ -116,16 +95,6 @@ function projectDisplay(projects){
              taskWords.style.display = "none";
              p3.appendChild(taskWords);
         })
-        let p4 = document.createElement("p");
-        p4.setAttribute("class","taskCreator");
-        p4.textContent = "Add Task(+)";
-        p3.appendChild(p4);
-        //this also needs to be changed so that when we click it it doesn't display ALL of the <p> elements 
-        p3.addEventListener("click", function(){
-            Array.from(document.querySelectorAll("p")).forEach(words =>{
-            words.style.display = "block";       
-        })
-    });
         //this is where we get the functionality to create a new project in this panel
         prjBar.appendChild(p3);
         content.appendChild(prjBar);
@@ -162,11 +131,13 @@ function removeAllChildNodes(parent) {
     }
 }
 
+
+
 function body(project){
-   
+    resetBody();
     let body = document.createElement("DIV");
     body.setAttribute("id", "toCenter");
-    resetBody();
+    body.setAttribute("class", "toC");
     let titling= document.createElement("h1");
     titling.textContent = project.getName();
     body.appendChild(titling);
@@ -178,6 +149,8 @@ function body(project){
     let p4 = document.createElement("h4");
     p4.setAttribute("class","taskCreator");
     p4.textContent = "Add Task(+)";
+    
+    body.appendChild(p4);
     document.getElementById("content").appendChild(body);
 }
 
@@ -186,5 +159,13 @@ function resetBody(){
         document.querySelector("#toCenter").parentElement.removeChild(document.querySelector("#toCenter"));
     }
 }
+
+function resetForm(){
+    if(document.querySelector("form") !== null){
+        document.querySelector("form").parentElement.removeChild(document.querySelector("form"));
+    }
+}
+
+
 
 export {fillOut, projectCreation, projectDisplay, updateProject, body}

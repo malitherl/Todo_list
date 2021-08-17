@@ -1,4 +1,5 @@
-import { body, fillOut, projectDisplay,updateProject } from "./DOMHandler";
+import { body, fillOut, projectDisplay } from "./DOMHandler";
+import { formHandler } from "./formHandler";
 import { createToDo } from "./module1";
 import {project} from "./module2";
 //this will be for projects, and there can be three categories for projects 
@@ -27,24 +28,51 @@ personal.addTask(meeb);
 personal.addTask(shmeeb);
 //we create a current project 
 projectDisplay(projects);
+let forms = formHandler();
+body(currentProject);
 
-fillOut();
 
-Array.from(document.getElementsByClassName("taskCreator")).forEach(p => {
-    p.addEventListener("click", function(){
-        p.firstElementChild.style.display = "block";
-    })
-});
+
+
 
 Array.from(document.getElementsByClassName("projectTitle")).forEach(h3=> {
     h3.addEventListener("click", function(){
         currentProject = (projects[h3.dataset.id]);   
-        console.log(currentProject.getName());
+        console.log(currentProject.getName());  
         body(currentProject);
+        if(document.getElementsByClassName("taskCreator")!== null){
+            console.log("hielfsafd");
+        }
+
     })
 });
 
 
+Array.from(document.getElementsByClassName("taskCreator")).forEach(elem =>{
+        elem.addEventListener("click", function(){
+            fillOut(elem);
+            document.getElementById("submit").addEventListener("click", function(){
+                let data = Array.from(document.getElementsByClassName("info"));
+                let task = createToDo(data[0].value, data[1].value, 
+                data[2].value,data[3].value,data[4].value);
+                currentProject.addTask(task);
+                console.log(currentProject.getTasks());
+            })
+        })
+
+});
+/* 
+
+p4.addEventListener("click", function(){
+    resetForm();
+    fillOut(p4);
+    document.getElementById("submit").addEventListener("click", function(){
+        p4.dataset.id= Array.from(document.getElementsByClassName("info"));
+    })
+})
+
+ */
+/* 
 document.getElementById("submit").addEventListener("click", function(){
     let data = Array.from(document.getElementsByClassName("info"));
     let task = createToDo(data[0].value, data[1].value, 
@@ -52,7 +80,7 @@ document.getElementById("submit").addEventListener("click", function(){
     currentProject.addTask(task);
     console.log(currentProject.getTasks());
 }) 
-
+ */
 
     
     //create a module that sorts the different tasks 
