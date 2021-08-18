@@ -1,4 +1,4 @@
-import { body, fillOut, projectDisplay } from "./DOMHandler";
+import { body, displayBody, displayForm, displayProjectCreation, fillOut, projectCreation, projectDisplay } from "./DOMHandler";
 import { formHandler } from "./formHandler";
 import { createToDo } from "./module1";
 import {project} from "./module2";
@@ -28,39 +28,64 @@ personal.addTask(meeb);
 personal.addTask(shmeeb);
 //we create a current project 
 projectDisplay(projects);
-let forms = formHandler();
-body(currentProject);
 
 
+///our problem is that none of these generate at the beginning of the program
 
-
-
-Array.from(document.getElementsByClassName("projectTitle")).forEach(h3=> {
-    h3.addEventListener("click", function(){
-        currentProject = (projects[h3.dataset.id]);   
-        console.log(currentProject.getName());  
-        body(currentProject);
-        if(document.getElementsByClassName("taskCreator")!== null){
-            console.log("hielfsafd");
-        }
-
+//if we add a new project we'll need to add the generate function in it
+function generate (){
+    projects.forEach(project =>{
+        body(project);
     })
-});
+    projectSelector();
+    projectCreation();
+    formHandling();
+} 
+generate();
 
+function projectSelector () {
+    Array.from(document.getElementsByClassName("projectTitle")).forEach(h3=> {
+        h3.addEventListener("click", function(){
+            currentProject = (projects[h3.dataset.id]);   
+            displayBody([h3.dataset.id]);
+            if(document.getElementsByClassName("taskCreator")!== null){
+                console.log("hielfsafd");
+            }
 
-Array.from(document.getElementsByClassName("taskCreator")).forEach(elem =>{
-        elem.addEventListener("click", function(){
-            fillOut(elem);
-            document.getElementById("submit").addEventListener("click", function(){
-                let data = Array.from(document.getElementsByClassName("info"));
-                let task = createToDo(data[0].value, data[1].value, 
-                data[2].value,data[3].value,data[4].value);
-                currentProject.addTask(task);
-                console.log(currentProject.getTasks());
-            })
         })
+    });
+    document.getElementById("projectCreation").addEventListener("click", function(){
+        displayProjectCreation();
+        document.getElementById("submit2").addEventListener("click", function(){
+            //a couple of things need to happen here 
+            /**
+             * first, we need the actual bar itself to go back to display "none"
+             * and second we need to create the new project and append it to the project bar
+             */
+        })
+    })
 
-});
+
+}
+
+function formHandling() {
+    Array.from(document.getElementsByClassName("taskCreator")).forEach(elem =>{
+            fillOut(elem);
+            elem.addEventListener("click", function(){
+                displayForm(elem);//this should become displayForm
+                document.getElementById("submit").addEventListener("click", function(){
+                    let data = Array.from(document.getElementsByClassName("info"));
+                    let task = createToDo(data[0].value, data[1].value, 
+                    data[2].value,data[3].value,data[4].value);
+                    currentProject.addTask(task);
+                    console.log(currentProject.getTasks());
+                })
+            })
+
+        });
+    }
+
+
 /* 
 
 p4.addEventListener("click", function(){

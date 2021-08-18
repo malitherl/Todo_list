@@ -1,7 +1,6 @@
 import {formHandler} from './formHandler';
 function fillOut (node){
     
-    resetForm();
     //we create a form here so we can fill out todo elements 
    
         const form = document.createElement("form");
@@ -49,6 +48,7 @@ function fillOut (node){
         form.appendChild(label5);
             form.appendChild(input5);
         form.appendChild(label6);
+        form.style.display = "none";
         node.appendChild(form);
     
 };
@@ -57,7 +57,9 @@ function fillOut (node){
 
 function projectCreation(){
 
-    const content = document.getElementById("content");
+    const content = document.getElementById("projectCreation");
+    const creationDIV = document.createElement("DIV");
+    creationDIV.setAttribute("id", "creationDIV");
     const textbox = document.createElement("label");
     textbox.textContent= "Project Name: ";
     const projectName = document.createElement("input");
@@ -68,11 +70,22 @@ function projectCreation(){
     button2.setAttribute("type", "button");
     button2.setAttribute("id", "submit2");
 
-    content.appendChild(textbox);
-    content.appendChild(projectName);
-    content.appendChild(button2);
-
+    creationDIV.appendChild(textbox);
+    creationDIV.appendChild(projectName);
+    creationDIV.appendChild(button2);
+    creationDIV.style.display ="none";
+    content.appendChild(creationDIV);
+    
 }
+
+function displayProjectCreation(){
+
+    document.getElementById("creationDIV").style.display ="block";
+}
+
+
+
+
 //we should have a little function to hide away the non current projects but not delete or we'd otherwise lose our event listeners 
 //which would be sadge :< 
 
@@ -100,8 +113,6 @@ function projectDisplay(projects){
         content.appendChild(prjBar);
 
         //this is actually where we need to add tasks, not the index.js page 
-
-
         //each project heading needs to be a dropdown menu that displays its tasks 
             //and each task needs a button that would allow the user to modify it and or delete it 
         //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown relevant website to our aims 
@@ -132,10 +143,30 @@ function removeAllChildNodes(parent) {
 }
 
 
+function displayBody(index){
+    let bodies= Array.from(document.getElementsByClassName("toC"));
+    bodies.forEach(body => {
+        body.style.display= "none";
+    })
+    bodies[index].style.display= "block";
+}
+
+function displayForm(node){
+    console.log(node.children.length);
+    let forms= Array.from(document.getElementsByTagName("form"));
+    forms.forEach(form=> {
+        form.style.display="none";
+    })
+    for(let i=0; i < node.children.length; i++){
+        node.children[i].style.display = "block";
+    }
+}
+
 
 function body(project){
-    resetBody();
+
     let body = document.createElement("DIV");
+    body.dataset.id = project.getName();
     body.setAttribute("id", "toCenter");
     body.setAttribute("class", "toC");
     let titling= document.createElement("h1");
@@ -152,6 +183,7 @@ function body(project){
     
     body.appendChild(p4);
     document.getElementById("content").appendChild(body);
+    body.style.display = "none"; 
 }
 
 function resetBody(){
@@ -168,4 +200,4 @@ function resetForm(){
 
 
 
-export {fillOut, projectCreation, projectDisplay, updateProject, body}
+export {fillOut, projectCreation, projectDisplay, updateProject, body, displayBody, displayForm,displayProjectCreation}
