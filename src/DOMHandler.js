@@ -127,12 +127,14 @@ function projectDisplay(projects){
     //we add an event listener to this in index.js
 }
 
-function updateProject(projects){
-    projects.forEach(project => {
-        let textDisplay = document.getElementById("projTitle"); 
-        textDisplay.textContent = project.getName() + " (" + project.getTasks().length+ ")" ;
-    })
-    
+function updateProject(project, projects){
+    let i = projects.indexOf(project);
+    let newProject = document.createElement("h3");
+        newProject.textContent= project.getName() + " (" + project.getTasks().length+ ")";
+        newProject.setAttribute("class", "projectTitle");
+        newProject.setAttribute("id", "projTitle");
+        newProject.dataset.id = i;
+    document.getElementById("prjBar").appendChild(newProject);
 }
 
 

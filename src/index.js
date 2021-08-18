@@ -1,4 +1,4 @@
-import { body, displayBody, displayForm, displayProjectCreation, fillOut, projectCreation, projectDisplay } from "./DOMHandler";
+import { body, displayBody, displayForm, displayProjectCreation, fillOut, projectCreation, projectDisplay, updateProject } from "./DOMHandler";
 import { formHandler } from "./formHandler";
 import { createToDo } from "./module1";
 import {project} from "./module2";
@@ -13,7 +13,7 @@ const personal = project("Personal", []);
 const work = project("Work", []);
 const newProject = project("a", []);
 let projects = [personal, work];
- 
+
 let currentProject = personal; 
 //we need to be able to modify tasks as well, which means appending behaviors onto 
 //the tasks themselves 
@@ -27,8 +27,8 @@ let shmeeb = createToDo("water the plants", "burh i need to water my plants", "0
 personal.addTask(meeb);
 personal.addTask(shmeeb);
 //we create a current project 
-projectDisplay(projects);
 
+projectDisplay(projects);
 
 ///our problem is that none of these generate at the beginning of the program
 
@@ -62,10 +62,16 @@ function projectSelector () {
              * first, we need the actual bar itself to go back to display "none"
              * and second we need to create the new project and append it to the project bar
              */
+            let newName = document.querySelector("#projName");
+            let newProj = project(newName.value, []);
+            projects.push(newProj);
+            console.log(projects);
+            updateProject(newProj, projects);
+            body(newProj);
+            projectSelector();  
+            formHandling();
         })
     })
-
-
 }
 
 function formHandling() {
