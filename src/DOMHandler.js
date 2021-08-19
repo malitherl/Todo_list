@@ -1,8 +1,6 @@
-import {formHandler} from './formHandler';
+
 function fillOut (node){
-    
-    //we create a form here so we can fill out todo elements 
-   
+    //we create a form here so we can fill out todo elements    
         const form = document.createElement("form");
         const label1 = document.createElement("label");
         label1.textContent = "Title: ";
@@ -25,7 +23,7 @@ function fillOut (node){
         input4.setAttribute("class", "info");
         input4.setAttribute("type", "number");
         input4.setAttribute("min", "1");
-        input4.setAttribute("max", "5");
+        input4.setAttribute("max", "3");
         const label5= document.createElement("label");
         label5.textContent="Completed?";
         const input5 = document.createElement("input");
@@ -92,39 +90,42 @@ function displayProjectCreation(){
 function projectDisplay(projects){
     const content = document.getElementById("content");
     let prjBar= document.createElement("DIV");
+    prjBar.setAttribute("id", "prjBar");
     let i=0;
+    content.appendChild(prjBar);
     projects.forEach(element => {
-        prjBar.setAttribute("id", "prjBar");
-        let p3 = document.createElement("h3");
-        p3.textContent = element.getName() + " (" + element.getTasks().length+ ")" ; 
+        appendTasksToProject(i, element, prjBar, prjBar);
+        i++;
+    })
+    let createProj = document.createElement("h3");
+    createProj.setAttribute("id", "projectCreation");
+    createProj.textContent = "Create New Project...";
+    document.getElementById("content").appendChild(createProj);
+    //we add an event listener to this in index.js
+}
+
+function appendTasksToProject(i,project, node){
+    //important for there to be a starting index for data attributes 
+    let p3 = document.createElement("h3");
+        p3.textContent = project.getName() + " (" + project.getTasks().length+ ")" ; 
         p3.setAttribute("class", "projectTitle");
         p3.setAttribute("id", "projTitle");
         p3.dataset.id = i;
-        i++;
-        let tasks = Array.from(element.getTasks());
+        let tasks = Array.from(project.getTasks());
         tasks.forEach(task => {
              let taskWords = document.createElement("p");
              taskWords.textContent = task;
              taskWords.style.display = "none";
              p3.appendChild(taskWords);
         })
-        //this is where we get the functionality to create a new project in this panel
-        prjBar.appendChild(p3);
-        content.appendChild(prjBar);
+    node.appendChild(p3);
+        
+}
 
-        //this is actually where we need to add tasks, not the index.js page 
-        //each project heading needs to be a dropdown menu that displays its tasks 
-            //and each task needs a button that would allow the user to modify it and or delete it 
-        //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown relevant website to our aims 
-        //we'll need to make a loop to iterate through all of the tasks and display them 
-        //there's also a function we'll need to make to update the webpage once we make these changes 
-    });
+function appendNewTasksToProject(i, project){
+    let a = Array.from(document.getElementsByClassName("projectTitle"));
+    a[i].textContent = project.getName() + " (" + project.getTasks().length+ ")";
 
-    let createProj = document.createElement("h3");
-    createProj.setAttribute("id", "projectCreation");
-    createProj.textContent = "Create New Project...";
-    document.getElementById("content").appendChild(createProj);
-    //we add an event listener to this in index.js
 }
 
 function updateProject(project, projects){
@@ -135,13 +136,6 @@ function updateProject(project, projects){
         newProject.setAttribute("id", "projTitle");
         newProject.dataset.id = i;
     document.getElementById("prjBar").appendChild(newProject);
-}
-
-
-function removeAllChildNodes(parent) {
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
 }
 
 
@@ -175,8 +169,8 @@ function body(project){
     titling.textContent = project.getName();
     body.appendChild(titling);
     project.getTasks().forEach(task => {
-        let writing = document.createElement("h4");
-        writing.textContent = task;
+        let writing = document.createElement("h4"); 
+        taskManager(writing, task.getVariables());
         body.appendChild(writing);
     })
     let p4 = document.createElement("h4");
@@ -188,18 +182,52 @@ function body(project){
     body.style.display = "none"; 
 }
 
-function resetBody(){
-    if(document.querySelector("#toCenter") !== null){
-        document.querySelector("#toCenter").parentElement.removeChild(document.querySelector("#toCenter"));
-    }
+
+function taskManager(node, string){
+
+    let cutUpArray = string.split(",");
+    let taskBox= document.createElement("DIV");
+    taskBox.setAttribute("class", "taskBox");
+        let title = document.createElement("h4");
+        title.textContent= cutUpArray[0];
+        title.setAttribute("class", "taskTitle");
+        let hiddenDetails= document.createElement("DIV");
+        hiddenDetails.setAttribute("id", "hiddenDetails");
+        hiddenDetails.style.display= "none";
+        let desc = document.createElement("p");
+        desc.textContent = cutUpArray[1];
+        let date = document.createElement("p");
+        date.textContent = cutUpArray[2];
+        let priortyNumber = parseInt(cutUpArray[3]);
+        let priority = document.createElement("p");
+        priority.textContent = cutUpArray[3] +"";
+            switch (priortyNumber){
+                case 1:
+                    priority.style.color = "rgb(204, 255, 51)";
+                break; 
+                case 2: 
+                    priority.style.color= "rgb(255, 214, 51)";
+                break;
+                case 3: 
+                    priority.style.color="rgb(230, 0, 0)";
+                break;
+                default: 
+                    priority.style.color="black";
+                break;
+            }
+        taskBox.appendChild(title);
+            hiddenDetails.appendChild(desc);
+            hiddenDetails.appendChild(date);
+            hiddenDetails.appendChild(priority);
+        taskBox.appendChild(hiddenDetails);
+    node.appendChild(taskBox);
 }
 
-function resetForm(){
-    if(document.querySelector("form") !== null){
-        document.querySelector("form").parentElement.removeChild(document.querySelector("form"));
-    }
+function updateProjectTasks(){
+    
 }
 
 
 
-export {fillOut, projectCreation, projectDisplay, updateProject, body, displayBody, displayForm,displayProjectCreation}
+
+export {fillOut, projectCreation, projectDisplay, updateProject, body, displayBody, displayForm,displayProjectCreation, appendNewTasksToProject}

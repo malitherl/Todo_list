@@ -1,4 +1,4 @@
-import { body, displayBody, displayForm, displayProjectCreation, fillOut, projectCreation, projectDisplay, updateProject } from "./DOMHandler";
+import { appendNewTasksToProject, body, displayBody, displayForm, displayProjectCreation, fillOut, projectCreation, projectDisplay, updateProject } from "./DOMHandler";
 import { formHandler } from "./formHandler";
 import { createToDo } from "./module1";
 import {project} from "./module2";
@@ -23,9 +23,11 @@ let currentProject = personal;
 
 
 let meeb = createToDo("water the plants", "burh i need to water my plants", "08/15/2022", "1", "complete");
-let shmeeb = createToDo("water the plants", "burh i need to water my plants", "08/15/2021", "1", "complete");
+let shmeeb = createToDo("water the plants", "burh i need to water my plants", "08/15/2021", "2", "complete");
+let teeb = createToDo("water the plants", "burh i need to water my plants", "08/15/2021", "3", "complete");
 personal.addTask(meeb);
 personal.addTask(shmeeb);
+personal.addTask(teeb);
 //we create a current project 
 
 projectDisplay(projects);
@@ -40,6 +42,7 @@ function generate (){
     projectSelector();
     projectCreation();
     formHandling();
+    taskDisplay();
 } 
 generate();
 
@@ -51,17 +54,11 @@ function projectSelector () {
             if(document.getElementsByClassName("taskCreator")!== null){
                 console.log("hielfsafd");
             }
-
         })
     });
     document.getElementById("projectCreation").addEventListener("click", function(){
         displayProjectCreation();
         document.getElementById("submit2").addEventListener("click", function(){
-            //a couple of things need to happen here 
-            /**
-             * first, we need the actual bar itself to go back to display "none"
-             * and second we need to create the new project and append it to the project bar
-             */
             let newName = document.querySelector("#projName");
             let newProj = project(newName.value, []);
             projects.push(newProj);
@@ -70,6 +67,7 @@ function projectSelector () {
             body(newProj);
             projectSelector();  
             formHandling();
+            taskDisplay();
         })
     })
 }
@@ -78,20 +76,27 @@ function formHandling() {
     Array.from(document.getElementsByClassName("taskCreator")).forEach(elem =>{
             fillOut(elem);
             elem.addEventListener("click", function(){
-                displayForm(elem);//this should become displayForm
+                displayForm(elem);
                 document.getElementById("submit").addEventListener("click", function(){
                     let data = Array.from(document.getElementsByClassName("info"));
                     let task = createToDo(data[0].value, data[1].value, 
                     data[2].value,data[3].value,data[4].value);
                     currentProject.addTask(task);
-                    console.log(currentProject.getTasks());
+                    let index = projects.indexOf(currentProject);
+                    appendNewTasksToProject(index, currentProject);                   
                 })
             })
 
         });
     }
 
-
+function taskDisplay(){
+    Array.from(document.getElementsByClassName("taskBox")).forEach(elem => {
+        elem.addEventListener("click", function(){
+            elem.children[1].style.display="block";
+        })
+    })
+}
 /* 
 
 p4.addEventListener("click", function(){
@@ -144,4 +149,3 @@ document.getElementById("submit").addEventListener("click", function(){
     //we could add a tab to each project that would allow us to add a new task directly there 
     //which would be a lot easier than
             //make a function that will allow us to create a new project in the project panel itself too 
-

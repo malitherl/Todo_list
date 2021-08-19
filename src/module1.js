@@ -1,26 +1,25 @@
 const createToDo = (title, description, dueDate, priority, completionStatus) => {
 
-    const todo = {};
-    todo.title = title;
-    todo.description= description;
-    todo.dueDate= dueDate;
-    todo.priority=priority;
-    todo.completionStatus= completionStatus;
-    return todo;
 
-}
+    //i want to be able to create a string that returns all of these values 
+   
+    //it's just easier to parse an array i think 
 
-function edit(todo) {
+        const getVariables = () => {
+            return `${title}, ${description}, ${dueDate}, ${priority}, ${completionStatus}`;
+        }
 
-    function changePriority(newPriority){
-        todo.priority= newPriority;
-    }
+    
 
-    function completionStatus(newComplete){
-        todo.completionStatus = newComplete;
-    }
+        const changePriority = (newPriority) => {
+            priority= newPriority;
+        }
 
-    return changePriority, completionStatus; 
+        const changeStatus = (newComplete) =>{
+            completionStatus = newComplete;
+        }
+
+        return {changePriority, changeStatus, getVariables}; 
 
 }
 
