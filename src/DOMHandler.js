@@ -81,9 +81,6 @@ function displayProjectCreation(){
     document.getElementById("creationDIV").style.display ="block";
 }
 
-
-
-
 //we should have a little function to hide away the non current projects but not delete or we'd otherwise lose our event listeners 
 //which would be sadge :< 
 
@@ -186,6 +183,12 @@ function body(project){
     
     p4.textContent = "Add Task(+)";
     
+    let p5 = document.createElement("h4");
+    p5.setAttribute("class", "taskEditor");
+    p5.setAttribute("id", "modifyTasks");
+    p5.textContent ="Edit Tasks"; 
+
+    body.appendChild(p5);
     body.appendChild(p4);
     document.getElementById("content").appendChild(body);
     body.style.display = "none"; 

@@ -43,6 +43,7 @@ function generate (){
     projectCreation();
     formHandling();
     taskDisplay();
+   
 } 
 generate();
 
@@ -55,6 +56,7 @@ function projectSelector () {
                 console.log("hielfsafd");
             }
             appendingTasks(currentProject);
+            editing(currentProject);
         })
     });
     document.getElementById("projectCreation").addEventListener("click", function(){
@@ -69,6 +71,7 @@ function projectSelector () {
             projectSelector();  
             formHandling();
             taskDisplay();
+            
         })
     })
 }
@@ -90,10 +93,6 @@ function taskDisplay(){
     })
 }
 
-
-
-
-
 function appendingTasks(currentProject){
     let index = projects.indexOf(currentProject);
     let a = Array.from(document.getElementsByTagName("form"));
@@ -108,63 +107,19 @@ function appendingTasks(currentProject){
     })
 }
 
-/* 
-
-p4.addEventListener("click", function(){
-    resetForm();
-    fillOut(p4);
-    document.getElementById("submit").addEventListener("click", function(){
-        p4.dataset.id= Array.from(document.getElementsByClassName("info"));
+function editing(currentProject){
+    Array.from(document.getElementsByClassName("taskEditor")).forEach(elem => {
+        elem.addEventListener("click", function(){
+            let a = Array.from(document.getElementsByClassName("taskContainer"));
+            let b = Array.from(a[projects.indexOf(currentProject)].getElementsByClassName("taskTitle"));
+            b.forEach(e => {
+                e.addEventListener("click", function(){
+                    //this is where we could continue to modify the task itself 
+                    //but we should have the text change color once we hit edit on them as well
+                    
+                });
+            })
+        })
     })
-})
-
- */
-/* 
-document.getElementById("submit").addEventListener("click", function(){
-    let data = Array.from(document.getElementsByClassName("info"));
-    let task = createToDo(data[0].value, data[1].value, 
-            data[2].value,data[3].value,data[4].value);
-    currentProject.addTask(task);
-    console.log(currentProject.getTasks());
-}) 
- */
-
-    
-    //create a module that sorts the different tasks 
-    /* let category = data[5].value;
-    if(category == "other"){
-        projectCreation();
-        console.log("will initiate project creation");
-        document.getElementById("submit2").addEventListener("click", function(){
-            let newName = document.querySelector("#projName");
-            let newProj = project(newName.value, []);
-            console.log(newName.value);
-            projects.push(newProj);
-            updateProject();
-            projectDisplay(projects);
-            
-        }) */
-   /*  } else {
-       let proj= taskSort(category, projects); 
-       proj.addTask(task);
-       console.log(projects);
-    } */
-
-//next thing would be to find a way of displaying the projects --also did this 
-//and be able to add different types of projects -- did this  
-
-
-        //there's also a function we'll need to make to update the webpage once we make these changes
-            //managed this and realized i need to reorganize how i wrote all of this code 
-
-    //we could add a tab to each project that would allow us to add a new task directly there 
-    //which would be a lot easier than
-            //make a function that will allow us to create a new project in the project panel itself too 
-            /* let data = Array.from(document.getElementsByClassName("info"));
-            console.log(data);
-            let task = createToDo(data[0].value, data[1].value, 
-            data[2].value,data[3].value,data[4].value);
-            currentProject.addTask(task);
-            console.log(currentProject.getTasks());
-            let index = projects.indexOf(currentProject);
-            appendNewTasksToProject(currentProject, index); */
+}
+//now let's move onto editing the tasks of the application

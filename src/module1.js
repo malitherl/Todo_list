@@ -8,9 +8,6 @@ const createToDo = (title, description, dueDate, priority, completionStatus) => 
         const getVariables = () => {
             return `${title}, ${description}, ${dueDate}, ${priority}, ${completionStatus}`;
         }
-
-    
-
         const changePriority = (newPriority) => {
             priority= newPriority;
         }
