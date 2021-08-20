@@ -124,14 +124,11 @@ function appendTasksToProject(i,project, node){
 }
 
 function appendNewTasksToProject(project,i){
-    console.log("a");
-    let body = Array.from(document.getElementsByClassName("toC"));
-    let a = Array.from(document.getElementsByClassName("taskCreator"));
-    let newestTask = project.getTasks()[project.getTasks().length-1];
-    let writing = document.createElement("h4");
-    taskManager(writing, newestTask.getVariables());
-    body[i].insertBefore(writing, a[i]);
-    console.log(body);
+    let taskContainer = Array.from(document.getElementsByClassName("taskContainer"));
+    let projectTasks = Array.from(project.getTasks());
+    let newestTask= projectTasks[projectTasks.length-1];
+    console.log(newestTask.getVariables());
+    taskManager(taskContainer[i], newestTask.getVariables());
 }
 
 function updateProject(project, projects){
@@ -173,11 +170,15 @@ function body(project){
     body.setAttribute("class", "toC");
     let titling= document.createElement("h1");
     titling.textContent = project.getName();
+    let taskContainer = document.createElement("DIV");
+    taskContainer.setAttribute("class", "taskContainer");
     body.appendChild(titling);
+    body.appendChild(taskContainer);
+    
     project.getTasks().forEach(task => {
         let writing = document.createElement("h4"); 
         taskManager(writing, task.getVariables());
-        body.appendChild(writing);
+        taskContainer.appendChild(writing);
     })
     let p4 = document.createElement("h4");
     p4.setAttribute("class","taskCreator");

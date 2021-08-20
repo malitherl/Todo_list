@@ -54,6 +54,7 @@ function projectSelector () {
             if(document.getElementsByClassName("taskCreator")!== null){
                 console.log("hielfsafd");
             }
+            appendingTasks(currentProject);
         })
     });
     document.getElementById("projectCreation").addEventListener("click", function(){
@@ -90,17 +91,22 @@ function taskDisplay(){
 }
 
 
-Array.from(document.getElementsByClassName("submit")).forEach(element => 
-    element.addEventListener("click", function(){
-        let data = Array.from(document.getElementsByClassName("info"));
-        let task = createToDo(data[0].value, data[1].value, 
-        data[2].value,data[3].value,data[4].value);
-        currentProject.addTask(task);
-        let index = projects.indexOf(currentProject);
-        console.log(index);
-        appendNewTasksToProject(currentProject, index);
-    }));
 
+
+
+function appendingTasks(currentProject){
+    let index = projects.indexOf(currentProject);
+    let a = Array.from(document.getElementsByTagName("form"));
+    a[index].elements[5].addEventListener("click", function(){
+        let data = a[index].getElementsByClassName("info");
+        let dataArray = Array.from(data);
+        let task = createToDo(dataArray[0].value, dataArray[1].value, 
+            dataArray[2].value,dataArray[3].value,dataArray[4].value);
+        currentProject.addTask(task);
+        let i = projects.indexOf(currentProject);
+        appendNewTasksToProject(currentProject, i);
+    })
+}
 
 /* 
 
@@ -154,3 +160,11 @@ document.getElementById("submit").addEventListener("click", function(){
     //we could add a tab to each project that would allow us to add a new task directly there 
     //which would be a lot easier than
             //make a function that will allow us to create a new project in the project panel itself too 
+            /* let data = Array.from(document.getElementsByClassName("info"));
+            console.log(data);
+            let task = createToDo(data[0].value, data[1].value, 
+            data[2].value,data[3].value,data[4].value);
+            currentProject.addTask(task);
+            console.log(currentProject.getTasks());
+            let index = projects.indexOf(currentProject);
+            appendNewTasksToProject(currentProject, index); */
