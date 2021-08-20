@@ -1,4 +1,4 @@
-import { appendNewTasksToProject, body, displayBody, displayForm, displayProjectCreation, fillOut, projectCreation, projectDisplay, updateProject } from "./DOMHandler";
+import { appendNewTasksToProject, body, displayBody, displayEditor, displayForm, displayProjectCreation, fillOut, projectCreation, projectDisplay, updateProject } from "./DOMHandler";
 import { formHandler } from "./formHandler";
 import { createToDo } from "./module1";
 import {project} from "./module2";
@@ -114,9 +114,12 @@ function editing(currentProject){
             let b = Array.from(a[projects.indexOf(currentProject)].getElementsByClassName("taskTitle"));
             b.forEach(e => {
                 e.addEventListener("click", function(){
-                    //this is where we could continue to modify the task itself 
-                    //but we should have the text change color once we hit edit on them as well
-                    
+                  let i = b.indexOf(e);
+                  let taskToChange = currentProject.getTasks()[i];
+                  taskToChange.changePriority(2);
+                  console.log(taskToChange.getVariables());
+
+                  //we need to call a function that will append inputs at the end of these tasks 
                 });
             })
         })

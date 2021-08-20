@@ -157,6 +157,21 @@ function displayForm(node){
         node.children[i].style.display = "block";
     }
 }
+ function createEditor(node){
+    let editorDiv = document.createElement("DIV");
+    editorDiv.setAttribute("class" , "editor");
+    let changePriorityInput = document.createElement("label");
+    changePriorityInput.textContent = "New Priority";
+    let changePriorityInput1 = document.createElement("input");
+    changePriorityInput1.setAttribute("class", "info1");
+    changePriorityInput1.setAttribute("type", "number");
+    changePriorityInput1.setAttribute("min", "1");
+    changePriorityInput1.setAttribute("max", "3");
+    editorDiv.appendChild(changePriorityInput);
+    editorDiv.appendChild(changePriorityInput1);
+    node.appendChild(editorDiv);
+ }
+
 
 
 function body(project){
@@ -176,6 +191,7 @@ function body(project){
         let writing = document.createElement("h4"); 
         taskManager(writing, task.getVariables());
         taskContainer.appendChild(writing);
+        createEditor(writing);
     })
     let p4 = document.createElement("h4");
     p4.setAttribute("class","taskCreator");
@@ -233,6 +249,7 @@ function taskManager(node, string){
             hiddenDetails.appendChild(priority);
         taskBox.appendChild(hiddenDetails);
     node.appendChild(taskBox);
+
 }
 
 
