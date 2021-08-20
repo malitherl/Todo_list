@@ -124,12 +124,14 @@ function appendTasksToProject(i,project, node){
 }
 
 function appendNewTasksToProject(project,i){
+    console.log("a");
     let body = Array.from(document.getElementsByClassName("toC"));
     let a = Array.from(document.getElementsByClassName("taskCreator"));
     let newestTask = project.getTasks()[project.getTasks().length-1];
     let writing = document.createElement("h4");
     taskManager(writing, newestTask.getVariables());
     body[i].insertBefore(writing, a[i]);
+    console.log(body);
 }
 
 function updateProject(project, projects){
@@ -188,9 +190,9 @@ function body(project){
     body.style.display = "none"; 
 }
 
-
+//we need to make a div to contain all of the tasks, maybe modify taskbox first 
 function taskManager(node, string){
-    
+
     let cutUpArray = string.split(",");
     let taskBox= document.createElement("DIV");
     taskBox.setAttribute("class", "taskBox");
@@ -228,11 +230,6 @@ function taskManager(node, string){
         taskBox.appendChild(hiddenDetails);
     node.appendChild(taskBox);
 }
-
-function updateProjectTasks(){
-    
-}
-
 
 
 

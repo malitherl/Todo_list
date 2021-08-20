@@ -25,7 +25,9 @@ let currentProject = personal;
 let meeb = createToDo("water the plants", "burh i need to water my plants", "08/15/2022", "1", "complete");
 let shmeeb = createToDo("water the plants", "burh i need to water my plants", "08/15/2021", "2", "complete");
 let teeb = createToDo("water the plants", "burh i need to water my plants", "08/15/2021", "3", "complete");
-
+personal.addTask(meeb);
+personal.addTask(shmeeb);
+personal.addTask(teeb);
 //we create a current project 
 
 projectDisplay(projects);
@@ -36,11 +38,11 @@ projectDisplay(projects);
 function generate (){
     projects.forEach(project =>{
         body(project);
-        projectSelector();
+    })
+    projectSelector();
     projectCreation();
     formHandling();
-    })
-    
+    taskDisplay();
 } 
 generate();
 
@@ -65,29 +67,17 @@ function projectSelector () {
             body(newProj);
             projectSelector();  
             formHandling();
+            taskDisplay();
         })
     })
 }
-//might be best to move all of these eventhandlers into the DOM...? 
+
 function formHandling() {
     Array.from(document.getElementsByClassName("taskCreator")).forEach(elem =>{
             fillOut(elem);
             elem.addEventListener("click", function(){
                 displayForm(elem);
-                Array.from(document.getElementsByClassName("submit")).forEach(e => {
-                        e.addEventListener("click", function(){
-                            let data = Array.from(document.getElementsByClassName("info"));
-                            let task = createToDo(data[0].value, data[1].value, 
-                            data[2].value,data[3].value,data[4].value);
-                            currentProject.addTask(task);
-                            let index = projects.indexOf(currentProject);
-                            console.log(index);
-                            appendNewTasksToProject(currentProject,index);
-                            taskDisplay();
-                    })
-                })
-            })
-
+            });  
         });
     }
 
@@ -98,6 +88,20 @@ function taskDisplay(){
         })
     })
 }
+
+
+Array.from(document.getElementsByClassName("submit")).forEach(element => 
+    element.addEventListener("click", function(){
+        let data = Array.from(document.getElementsByClassName("info"));
+        let task = createToDo(data[0].value, data[1].value, 
+        data[2].value,data[3].value,data[4].value);
+        currentProject.addTask(task);
+        let index = projects.indexOf(currentProject);
+        console.log(index);
+        appendNewTasksToProject(currentProject, index);
+    }));
+
+
 /* 
 
 p4.addEventListener("click", function(){
