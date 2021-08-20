@@ -34,7 +34,7 @@ function fillOut (node){
         const label6 = document.createElement("button");
         label6.textContent="Submit";
         label6.setAttribute("type", "button");
-        label6.setAttribute("id", "submit");
+        label6.setAttribute("class", "submit");
         form.appendChild(label1); 
             form.appendChild(input1); 
         form.appendChild(label2);
@@ -114,6 +114,7 @@ function appendTasksToProject(i,project, node){
         let tasks = Array.from(project.getTasks());
         tasks.forEach(task => {
              let taskWords = document.createElement("p");
+             taskWords.setAttribute("class", "projectTasks");
              taskWords.textContent = task;
              taskWords.style.display = "none";
              p3.appendChild(taskWords);
@@ -122,10 +123,13 @@ function appendTasksToProject(i,project, node){
         
 }
 
-function appendNewTasksToProject(i, project){
-    let a = Array.from(document.getElementsByClassName("projectTitle"));
-    a[i].textContent = project.getName() + " (" + project.getTasks().length+ ")";
-
+function appendNewTasksToProject(project,i){
+    let body = Array.from(document.getElementsByClassName("toC"));
+    let a = Array.from(document.getElementsByClassName("taskCreator"));
+    let newestTask = project.getTasks()[project.getTasks().length-1];
+    let writing = document.createElement("h4");
+    taskManager(writing, newestTask.getVariables());
+    body[i].insertBefore(writing, a[i]);
 }
 
 function updateProject(project, projects){
@@ -175,6 +179,8 @@ function body(project){
     })
     let p4 = document.createElement("h4");
     p4.setAttribute("class","taskCreator");
+    p4.setAttribute("id","formCreator");
+    
     p4.textContent = "Add Task(+)";
     
     body.appendChild(p4);
@@ -184,7 +190,7 @@ function body(project){
 
 
 function taskManager(node, string){
-
+    
     let cutUpArray = string.split(",");
     let taskBox= document.createElement("DIV");
     taskBox.setAttribute("class", "taskBox");
