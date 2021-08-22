@@ -129,18 +129,13 @@ function editingDisplay(currentProject){
 function editing(node, i, currentProject){
     Array.from(node.getElementsByClassName("submit3")).forEach(elem => {
         elem.addEventListener("click", function(){
-            let newPriority = node.getElementsByClassName("info1");
-            console.log(newPriority);
-            currentProject.getTasks()[i].changePriority(newPriority); 
-            console.log(currentProject.getTasks()[i].getVariables());
-            //something with the input isn't working properly 
-            //and making it return undefined 
+            let array = Array.from(node.getElementsByClassName("info1"));
+            let newPriority = array[0].value;
+            let taskToChange = currentProject.getTasks()[i];
+            taskToChange.changePriority(newPriority);
+            console.log(taskToChange.getVariables());
         })
     })
 }
 
 
-
-
-
-//now let's move onto editing the tasks of the application
