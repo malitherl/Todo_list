@@ -56,7 +56,7 @@ function projectSelector () {
                 console.log("hielfsafd");
             }
             appendingTasks(currentProject);
-            editing(currentProject);
+            editingDisplay(currentProject);
         })
     });
     document.getElementById("projectCreation").addEventListener("click", function(){
@@ -107,22 +107,40 @@ function appendingTasks(currentProject){
     })
 }
 
-function editing(currentProject){
+function editingDisplay(currentProject){
     Array.from(document.getElementsByClassName("taskEditor")).forEach(elem => {
         elem.addEventListener("click", function(){
             let a = Array.from(document.getElementsByClassName("taskContainer"));
-            let b = Array.from(a[projects.indexOf(currentProject)].getElementsByClassName("taskTitle"));
+            let b = Array.from(a[projects.indexOf(currentProject)].getElementsByClassName("text"));
+            
             b.forEach(e => {
                 e.addEventListener("click", function(){
-                  let i = b.indexOf(e);
-                  let taskToChange = currentProject.getTasks()[i];
-                  taskToChange.changePriority(2);
-                  console.log(taskToChange.getVariables());
-
-                  //we need to call a function that will append inputs at the end of these tasks 
+                  let c = b.indexOf(e);
+                  console.log(c);
+                  e.children[1].style.display= "block";
+                  e.children[2].style.display = "block";
+                  editing(e.children[1], c, currentProject);
                 });
             })
         })
     })
 }
+
+function editing(node, i, currentProject){
+    Array.from(node.getElementsByClassName("submit3")).forEach(elem => {
+        elem.addEventListener("click", function(){
+            let newPriority = node.getElementsByClassName("info1");
+            console.log(newPriority);
+            currentProject.getTasks()[i].changePriority(newPriority); 
+            console.log(currentProject.getTasks()[i].getVariables());
+            //something with the input isn't working properly 
+            //and making it return undefined 
+        })
+    })
+}
+
+
+
+
+
 //now let's move onto editing the tasks of the application

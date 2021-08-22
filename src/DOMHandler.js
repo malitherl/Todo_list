@@ -167,10 +167,28 @@ function displayForm(node){
     changePriorityInput1.setAttribute("type", "number");
     changePriorityInput1.setAttribute("min", "1");
     changePriorityInput1.setAttribute("max", "3");
+    let submitButton = document.createElement("button");
+    submitButton.setAttribute("class", "submit3"); 
+    submitButton.textContent = "Save";
     editorDiv.appendChild(changePriorityInput);
     editorDiv.appendChild(changePriorityInput1);
+    editorDiv.appendChild(submitButton);
+    editorDiv.style.display = "none";
     node.appendChild(editorDiv);
  }
+
+function removeTask(node){
+    let removalDiv = document.createElement("DIV");
+    removalDiv.setAttribute("class", "delete");
+    removalDiv.style.display = "none";
+    let deletion = document.createElement("button");
+    deletion.textContent="Delete Task";
+    deletion.setAttribute("id", "deletion");
+    removalDiv.appendChild(deletion);
+    node.appendChild(removalDiv);
+}
+
+
 
 
 
@@ -189,9 +207,11 @@ function body(project){
     
     project.getTasks().forEach(task => {
         let writing = document.createElement("h4"); 
+        writing.setAttribute("class", "text");
         taskManager(writing, task.getVariables());
         taskContainer.appendChild(writing);
         createEditor(writing);
+        removeTask(writing);
     })
     let p4 = document.createElement("h4");
     p4.setAttribute("class","taskCreator");
