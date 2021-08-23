@@ -1,4 +1,4 @@
-import { appendNewTasksToProject, body, deleteTask, displayBody, displayEditor, displayForm, displayProjectCreation, fillOut, projectCreation, projectDisplay, update, updateProject } from "./DOMHandler";
+import { appendNewTasksToProject, body, deleteTask, displayBody, displayEditor, displayForm, displayProjectCreation, fillOut, projectCreation, projectDeletionDisplay, projectDisplay, update, updateProject } from "./DOMHandler";
 import { formHandler } from "./formHandler";
 import { createToDo } from "./module1";
 import {project} from "./module2";
@@ -53,9 +53,6 @@ function projectSelector () {
         h3.addEventListener("click", function(){
             currentProject = (projects[h3.dataset.id]);   
             displayBody([h3.dataset.id]);
-            if(document.getElementsByClassName("taskCreator")!== null){
-                console.log("hielfsafd");
-            }
             appendingTasks(currentProject);
             editingDisplay(currentProject);
         })
@@ -66,7 +63,6 @@ function projectSelector () {
             let newName = document.querySelector("#projName");
             let newProj = project(newName.value, []);
             projects.push(newProj);
-            console.log(projects);
             updateProject(newProj, projects);
             body(newProj);
             projectSelector();  
@@ -75,7 +71,30 @@ function projectSelector () {
             
         })
     })
+
+    document.getElementById("projectDeletion").addEventListener("click", function(){
+        projectDeletionDisplay(projects);
+        document.getElementById("submit4").addEventListener("click", function(){
+            console.log(document.getElementById("selectProject").value);
+            deleteProject(document.getElementById("selectProject").value);
+        })
+    })
 }
+
+function deleteProject(name){
+    projects.forEach(e => {
+        if(e.getName() == name){
+            let indexOfRemoved= projects.indexOf(e);
+            document.getElementById("prjBar").children[indexOfRemoved].remove();
+            projects.splice(projects.indexOf(e), 1);
+        }
+    })
+
+}
+
+
+
+
 
 function formHandling() {
     Array.from(document.getElementsByClassName("taskCreator")).forEach(elem =>{
@@ -136,11 +155,11 @@ function editing(node, i, currentProject){
             let newPriority = array[0].value;
             let taskToChange = currentProject.getTasks()[i];
             taskToChange.changePriority(newPriority);
-            console.log(taskToChange.getVariables());
+            update(projects.indexOf(currentProject), currentProject);
         })
     })
 }
-
+//this will delete a task
 function deletion(node, i, currentProject){
     console.log(node.getElementsByClassName("deletion"));
     Array.from(node.getElementsByClassName("deletion")).forEach(elem => {
@@ -151,3 +170,4 @@ function deletion(node, i, currentProject){
         })
     })
 }
+

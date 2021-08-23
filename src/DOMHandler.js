@@ -81,6 +81,29 @@ function displayProjectCreation(){
     document.getElementById("creationDIV").style.display ="block";
 }
 
+function projectDeletionDisplay(projects){
+    let deletionDIV = document.createElement("DIV");
+    deletionDIV.setAttribute("id", "deletionDIV");
+
+    let selectionBar= document.createElement("select");
+    selectionBar.setAttribute("id", "selectProject");
+    let projectsArray = Array.from(projects);
+    projectsArray.forEach( e => {
+        let option = document.createElement("option");
+        option.value = e.getName();
+        option.textContent = e.getName();
+        selectionBar.appendChild(option);
+    })
+    deletionDIV.appendChild(selectionBar);
+    let enter = document.createElement("button");
+    enter.setAttribute("id", "submit4");
+    enter.textContent = "Enter";
+    deletionDIV.appendChild(enter);
+    document.getElementById("content").appendChild(deletionDIV);
+}
+
+
+
 //we should have a little function to hide away the non current projects but not delete or we'd otherwise lose our event listeners 
 //which would be sadge :< 
 
@@ -99,6 +122,11 @@ function projectDisplay(projects){
     createProj.textContent = "Create New Project...";
     document.getElementById("content").appendChild(createProj);
     //we add an event listener to this in index.js
+
+    let deleteProj = document.createElement("h3");
+    deleteProj.setAttribute("id", "projectDeletion");
+    deleteProj.textContent = "Delete Project...";
+    document.getElementById("content").appendChild(deleteProj);
 }
 
 function appendTasksToProject(i,project, node){
@@ -126,7 +154,6 @@ function appendNewTasksToProject(project,i){
     let newestTask= projectTasks[projectTasks.length-1];
     console.log(newestTask.getVariables());
     taskManager(taskContainer[i], newestTask.getVariables());
-    //trigger update function
 }
 
 function updateProject(project, projects){
@@ -149,7 +176,6 @@ function displayBody(index){
 }
 
 function displayForm(node){
-    console.log(node.children.length);
     let forms= Array.from(document.getElementsByTagName("form"));
     forms.forEach(form=> {
         form.style.display="none";
@@ -191,11 +217,9 @@ function removeTask(node){
 }
 
 function deleteTask(indexInProjects, indexOfTask){
-
     let tasks = Array.from(document.getElementsByClassName("taskContainer"));
     console.log(tasks[indexInProjects].children[indexOfTask]);
     tasks[indexInProjects].children[indexOfTask].remove();
-    //trigger update function 
 }
 
 function update(indexOfProject, project){
@@ -286,4 +310,4 @@ function taskManager(node, string){
 
 
 
-export {fillOut, projectCreation, projectDisplay, update, body, displayBody, displayForm,displayProjectCreation, appendNewTasksToProject, deleteTask}
+export {fillOut, projectCreation, projectDisplay, update, updateProject, body, displayBody, displayForm,displayProjectCreation, appendNewTasksToProject, deleteTask, projectDeletionDisplay}
