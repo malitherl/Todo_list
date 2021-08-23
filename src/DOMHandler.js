@@ -126,6 +126,7 @@ function appendNewTasksToProject(project,i){
     let newestTask= projectTasks[projectTasks.length-1];
     console.log(newestTask.getVariables());
     taskManager(taskContainer[i], newestTask.getVariables());
+    //trigger update function
 }
 
 function updateProject(project, projects){
@@ -176,20 +177,31 @@ function displayForm(node){
     editorDiv.style.display = "none";
     node.appendChild(editorDiv);
  }
-
+//this is not the function to remove a task but rather it displays to do so 
+//the deleteTask function is the function that removes a task from the page
 function removeTask(node){
     let removalDiv = document.createElement("DIV");
     removalDiv.setAttribute("class", "delete");
     removalDiv.style.display = "none";
     let deletion = document.createElement("button");
     deletion.textContent="Delete Task";
-    deletion.setAttribute("id", "deletion");
+    deletion.setAttribute("class", "deletion");
     removalDiv.appendChild(deletion);
     node.appendChild(removalDiv);
 }
 
+function deleteTask(indexInProjects, indexOfTask){
 
+    let tasks = Array.from(document.getElementsByClassName("taskContainer"));
+    console.log(tasks[indexInProjects].children[indexOfTask]);
+    tasks[indexInProjects].children[indexOfTask].remove();
+    //trigger update function 
+}
 
+function update(indexOfProject, project){
+    let projects = document.getElementById("prjBar"); 
+    projects.children[indexOfProject].textContent= project.getName() + " (" + project.getTasks().length + ") ";
+}
 
 
 function body(project){
@@ -274,4 +286,4 @@ function taskManager(node, string){
 
 
 
-export {fillOut, projectCreation, projectDisplay, updateProject, body, displayBody, displayForm,displayProjectCreation, appendNewTasksToProject}
+export {fillOut, projectCreation, projectDisplay, update, body, displayBody, displayForm,displayProjectCreation, appendNewTasksToProject, deleteTask}

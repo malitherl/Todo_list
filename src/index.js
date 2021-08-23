@@ -1,4 +1,4 @@
-import { appendNewTasksToProject, body, displayBody, displayEditor, displayForm, displayProjectCreation, fillOut, projectCreation, projectDisplay, updateProject } from "./DOMHandler";
+import { appendNewTasksToProject, body, deleteTask, displayBody, displayEditor, displayForm, displayProjectCreation, fillOut, projectCreation, projectDisplay, update, updateProject } from "./DOMHandler";
 import { formHandler } from "./formHandler";
 import { createToDo } from "./module1";
 import {project} from "./module2";
@@ -29,6 +29,7 @@ personal.addTask(meeb);
 personal.addTask(shmeeb);
 personal.addTask(teeb);
 //we create a current project 
+work.addTask(meeb);
 
 projectDisplay(projects);
 
@@ -119,7 +120,9 @@ function editingDisplay(currentProject){
                   console.log(c);
                   e.children[1].style.display= "block";
                   e.children[2].style.display = "block";
+                  console.log(e.children[2]);
                   editing(e.children[1], c, currentProject);
+                  deletion(e.children[2], c, currentProject);
                 });
             })
         })
@@ -138,4 +141,13 @@ function editing(node, i, currentProject){
     })
 }
 
-
+function deletion(node, i, currentProject){
+    console.log(node.getElementsByClassName("deletion"));
+    Array.from(node.getElementsByClassName("deletion")).forEach(elem => {
+        elem.addEventListener("click", function(){
+            currentProject.removeTask(i);
+            deleteTask(projects.indexOf(currentProject), i);
+            update(projects.indexOf(currentProject), currentProject);
+        })
+    })
+}
