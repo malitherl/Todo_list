@@ -75,7 +75,6 @@ function projectSelector () {
     document.getElementById("projectDeletion").addEventListener("click", function(){
         projectDeletionDisplay(projects);
         document.getElementById("submit4").addEventListener("click", function(){
-            console.log(document.getElementById("selectProject").value);
             deleteProject(document.getElementById("selectProject").value);
         })
     })
@@ -91,10 +90,6 @@ function deleteProject(name){
     })
 
 }
-
-
-
-
 
 function formHandling() {
     Array.from(document.getElementsByClassName("taskCreator")).forEach(elem =>{
