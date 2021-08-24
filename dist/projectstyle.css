@@ -1,0 +1,21 @@
+#content {
+    display: flex;
+    flex-direction: row;
+}
+#projectPanel {
+    padding: 20px;
+}
+.toC {
+    margin-left: 30%;
+    display: grid;
+    margin-top: 5%;
+    padding: 40px;
+    border: solid 1px white;
+    border-radius: 15px;
+}
+
+body{
+    background-color: rgb(15, 15, 15);
+    color: white;
+    font-family: monospace;
+}

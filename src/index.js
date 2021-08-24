@@ -1,4 +1,4 @@
-import { appendNewTasksToProject, body, deleteTask, displayBody, displayEditor, displayForm, displayProjectCreation, fillOut, projectCreation, projectDeletionDisplay, projectDisplay, update, updateProject } from "./DOMHandler";
+import { appendNewTasksToProject, body, deleteTask, displayBody, displayEditor, displayForm, displayProjectCreation, fillOut, projectCreation, projectDeletionDisplay, projectDisplay, update, updateProject, webpageDisplay } from "./DOMHandler";
 import { formHandler } from "./formHandler";
 import { createToDo } from "./module1";
 import {project} from "./module2";

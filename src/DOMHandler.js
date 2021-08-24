@@ -51,8 +51,6 @@ function fillOut (node){
     
 };
 
-
-
 function projectCreation(){
 
     const content = document.getElementById("projectCreation");
@@ -109,10 +107,12 @@ function projectDeletionDisplay(projects){
 
 function projectDisplay(projects){
     const content = document.getElementById("content");
+    const panel = document.createElement("DIV");
+    panel.setAttribute("id", "projectPanel");
     let prjBar= document.createElement("DIV");
     prjBar.setAttribute("id", "prjBar");
     let i=0;
-    content.appendChild(prjBar);
+    panel.appendChild(prjBar);
     projects.forEach(element => {
         appendTasksToProject(i, element, prjBar, prjBar);
         i++;
@@ -120,13 +120,14 @@ function projectDisplay(projects){
     let createProj = document.createElement("h3");
     createProj.setAttribute("id", "projectCreation");
     createProj.textContent = "Create New Project...";
-    document.getElementById("content").appendChild(createProj);
+    panel.appendChild(createProj);
     //we add an event listener to this in index.js
 
     let deleteProj = document.createElement("h3");
     deleteProj.setAttribute("id", "projectDeletion");
     deleteProj.textContent = "Delete Project...";
-    document.getElementById("content").appendChild(deleteProj);
+    panel.appendChild(deleteProj);
+    content.appendChild(panel);
 }
 
 function appendTasksToProject(i,project, node){
@@ -172,7 +173,7 @@ function displayBody(index){
     bodies.forEach(body => {
         body.style.display= "none";
     })
-    bodies[index].style.display= "block";
+    bodies[index].style.display= "grid";
 }
 
 function displayForm(node){
